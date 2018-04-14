@@ -12,24 +12,26 @@
 <br>
 <jsp:include page="/WEB-INF/views/include/admin-menu.jsp"/>
 <hr width='900' size='3'>
+<form action = "${pageContext.servletContext.contextPath }/ad/productnew" accept-charset="utf-8" name = "product_new" method = "post"> 
 <table width="800" border="1" cellspacing="0" cellpadding="3" bordercolordark="white" bordercolorlight="black">
 	<tr height="23"> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품분류</td>
     <td width="700" bgcolor="#F2F2F2">
-			<select name="menu">
+			<select name="categoryNo">
 				<option value="0" selected>상품분류를 선택하세요</option>
-				<option value="1">금팔찌</option>
-				<option value="2">은팔찌</option>
-				<option value="3">기타팔찌</option>
+				<c:set var="length" value="${fn:length(vo) }" />
+				<c:forEach items="${ vo}" var="vo" varStatus="status">
+				<option value="${vo.no }">${vo.name }</option>
+			</c:forEach>
 			</select>
 		</td>
 	</tr>
-	<tr height="23"> 
+	<!-- <tr height="23"> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품코드</td>
 		<td width="700" bgcolor="#F2F2F2">
 			<input type="text" name="code" value="" size="20" maxlength="20">
 		</td>
-	</tr>
+	</tr> -->
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품명</td>
 		<td width="700" bgcolor="#F2F2F2">
@@ -48,9 +50,9 @@
 			<input type="text" name="price" value="" size="12" maxlength="12"> 원
 		</td>
 	</tr>
-	<tr> 
+<!--	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">옵션</td>
-    <td width="700" bgcolor="#F2F2F2">
+     <td width="700" bgcolor="#F2F2F2">
 			<select name="opt1">
 				<option value="0" selected>옵션선택</option>
 				<option value="1">사이즈</option>
@@ -64,8 +66,8 @@
 				<option value="2">색상_WB</option>
 				<option value="3">색상_WR</option>
 			</select> &nbsp; &nbsp; 
-		</td>
-	</tr>
+		</td> 
+	</tr>-->
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">제품설명</td>
 		<td width="700" bgcolor="#F2F2F2">

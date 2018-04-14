@@ -2,7 +2,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<table width="959" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+
+ <table width="959" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
 	<tr> 
 		<td background="${pageContext.servletContext.contextPath }/assets/images/footer_bg.gif" height="11"></td>
 	</tr>
@@ -12,7 +13,7 @@
 			<table width="959" border="0" cellspacing="0" cellpadding="0">
 				<tr> 
 					<td valign="top"><a href="index.jsp"><img src="${pageContext.servletContext.contextPath }/assets/images/footer_logo.gif" border="0"></a></td>
-					<td width="28"></td>
+					<td width="20"></td>
 					<td> 
 						<table border="0" cellspacing="0" cellpadding="0">
 							<tr> 
@@ -29,6 +30,7 @@
 								</td>
 							</tr>
 							<tr> 
+							<td></td>
 								<td><img src="${pageContext.servletContext.contextPath }/assets/images/footer_copyright.gif"></td>
 							</tr>
 						</table>
@@ -46,7 +48,6 @@
 									<table border="0" cellspacing="0" cellpadding="0">
 										<tr> 
 											<td><A HREF="http://www.ftc.go.kr/" target="_blank"><img src="${pageContext.servletContext.contextPath }/assets/images/footer_pic1.gif" border="0"></A></td>
-											<td><img src="footer_line.gif" width="3" height="42"></td>
 											<td><A HREF="http://www.sgic.co.kr/" target="_blank"><img src="${pageContext.servletContext.contextPath }/assets/images/footer_pic2.gif" border="0"></a></td>
 										</tr>
 									</table>
@@ -58,4 +59,4 @@
 			</table>
 		</td>
 	</tr>
-</table>
+</table> 

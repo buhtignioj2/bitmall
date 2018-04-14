@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+	<insert id="insert" parameterType="cartdto">
+	<![CDATA[
+		insert into cart 
+		values( #{no}, #{memberNo}, #{count} );
+	]]>
+	</insert>
+	
+	<select id="getList" resultType="cartdto">
+	<![CDATA[
+		select product.name, cart.member_no, cart.product_no, sum(cart.`count`) as count,
+				 product.price, image.new_name 
+		  from product, cart, member, image
+	 	 where member.`no` = cart.member_no
+		   and cart.product_no = product.`no`
+		   and product.`no` = image.product_no
+		 group by cart.product_no;
+	]]>
+	</select>
+	
+	<select id="getListByNo" resultType="cartdto" parameterType="long">
+	<![CDATA[
+		select product.no, product.name, cart.member_no, cart.product_no, sum(cart.`count`)as count,
+				 product.price, image.new_name as newName
+		  from product, cart, image
+		 where #{no} = cart.member_no
+		   and cart.product_no = product.`no`
+		   and product.`no` = image.product_no
+		 group by cart.product_no
+	]]>
+	</select>
+	
+	<delete id="deleteByNo" parameterType="long">
+	<![CDATA[
+		delete from cart where #{no} = member_no
+	]]>
+	</delete>
+	
+	<update id="updateByNo" parameterType="cartdto">
+		<![CDATA[
+			UPDATE cart 
+			   SET count = #{count} 
+			 WHERE product_no = #{no}
+			   AND member_no = #{memberNo}
+		]]>
+	</update>
+	
+	<delete id="deleteOne" parameterType="long">
+	<![CDATA[
+		delete from cart where #{no} = product_no
+	]]>
+	</delete>
+	
+</mapper>

@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
@@ -33,24 +36,27 @@
 			<table border="0" cellpadding="0" cellspacing="0">
 				<!---1번째 줄-->
 				<tr>
+				<c:set var="cnt" value="0" />
+				<c:forEach items="${ vo}" var="vo" varStatus="status">
 					<td width="150" height="205" align="center" valign="top">
 						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
 							<tr> 
 								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="120" height="140" border="0"></a>
+									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" width="120" height="140" border="0"></a>
 								</td>
 							</tr>
 							<tr><td height="5"></td></tr>
 							<tr> 
 								<td height="20" align="center">
-									<a href="product_detail.jsp?no=1"><font color="444444">상품명1</font></a>&nbsp; 
+									<a href="product_detail.jsp?no=1"><font color="444444">${vo.name }</font></a>&nbsp; 
 									<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="absmiddle" vspace="1"> <img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="absmiddle" vspace="1"> 
 								</td>
 							</tr>
-							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
+							<tr><td height="20" align="center"><b>${vo.price } 원</b></td></tr>
 						</table>
 					</td>
-					<td width="150" height="205" align="center" valign="top">
+				
+					<%-- <td width="150" height="205" align="center" valign="top">
 						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
 							<tr> 
 								<td align="center"> 
@@ -117,12 +123,16 @@
 							</tr>
 							<tr><td height="20" align="center"><b>89,000 원</b></td></tr>
 						</table>
-					</td>
-
+					</td> --%>
+					<c:set var= "cnt" value="${cnt + 1}"/>
+					<c:if test="${cnt%5 == 0}">
+					<tr></tr>
+					</c:if>
+					</c:forEach>
 				</tr>
 				<tr><td height="10"></td></tr>
 				<!---2번째 줄-->
-				<tr>
+				<%-- <tr>
 					<td width="150" height="205" align="center" valign="top">
 						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
 							<tr> 
@@ -210,9 +220,9 @@
 						</table>
 					</td>
 				</tr>
-				<tr><td height="10"></td></tr>
+				<tr><td height="10"></td></tr> --%>
 				<!---3번째 줄-->
-				<tr>
+				<%-- <tr>
 					<td width="150" height="205" align="center" valign="top">
 						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
 							<tr> 
@@ -300,7 +310,7 @@
 						</table>
 					</td>
 				</tr>
-				<tr><td height="10"></td></tr>
+				<tr><td height="10"></td></tr> --%>
 			</table>
 
 			<!---- 화면 우측(신상품) 끝 -------------------------------------------------->	

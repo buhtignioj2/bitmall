@@ -82,6 +82,7 @@
 					form2.card_pw.disabled = false;
 					form2.bank_kind.disabled = true;
 					form2.bank_sender.disabled = true;
+					form2.card_halbu.disabled = false;
 				}
 				else {
 					form2.card_kind.disabled = true;
@@ -94,6 +95,7 @@
 					form2.card_pw.disabled = true;
 					form2.bank_kind.disabled = false;
 					form2.bank_sender.disabled = false;
+					form2.card_halbu.disabled = true;
 				}
 			}
 
@@ -121,25 +123,31 @@
 					<td width="100" align="center">가격</td>
 					<td width="100" align="center">합계</td>
 				</tr>
+				<c:set var="sum" value="0" />
+				<c:forEach items="${ list}" var="vo" varStatus="status">
 				<tr bgcolor="#FFFFFF">
 					<td height="60" align="center">
 						<table cellpadding="0" cellspacing="0" width="100%">
 							<tr>
 								<td width="60">
-									<a href="product_detail.jsp?no=0000"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="50" height="50" border="0"></a>
+									<a href="product_detail.jsp?no=0000"><img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" width="50" height="50" border="0"></a>
 								</td>
 								<td class="cmfont">
-									<a href="product_detail.jsp?no=0000"><font color="#0066CC">제품명1</font></a><br>
+									<a href="product_detail.jsp?no=0000"><font color="#0066CC">${vo.name }</font></a><br>
+								<!-- 
 									[옵션]</font> 옵션1
-								</td>
+								-->
+								</td> 
 							</tr>
 						</table>
 					</td>
-					<td align="center"><font color="#464646">1&nbsp개</font></td>
-					<td align="center"><font color="#464646">70,200</font> 원</td>
-					<td align="center"><font color="#464646">70,200</font> 원</td>
+					<td align="center"><font color="#464646">${vo.count } 개</font></td>
+					<td align="center"><font color="#464646">${vo.price }</font> 원</td>
+					<td align="center"><font color="#464646">${vo.price }</font> 원</td>
 				</tr>
-				<tr bgcolor="#FFFFFF">
+				<c:set var= "sum" value="${sum + (vo.price * vo.count)}"/>
+				</c:forEach>
+				<%-- <tr bgcolor="#FFFFFF">
 					<td height="60" align="center">
 						<table cellpadding="0" cellspacing="0" width="100%">
 							<tr>
@@ -157,13 +165,14 @@
 					<td align="center"><font color="#464646">60,000</font> 원</td>
 					<td align="center"><font color="#464646">60,000</font> 원</td>
 				</tr>
+				 --%>
 				<tr>
 					<td colspan="5" bgcolor="#F0F0F0">
 						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="cmfont">
 							<tr>
 								<td bgcolor="#F0F0F0"><img src="${pageContext.servletContext.contextPath }/assets/images/cart_image1.gif" border="0"></td>
 								<td align="right" bgcolor="#F0F0F0">
-									<font color="#0066CC"><b>총 합계금액</font></b> : 상품대금(132,000원) + 배송료(2,500원) = <font color="#FF3333"><b>134,500 원</b></font>&nbsp;&nbsp
+									<font color="#0066CC"><b>총 합계금액</font></b> : 상품대금(${sum }원) + 배송료(2,500원) = <font color="#FF3333"><b>${sum+2500 } 원</b></font>&nbsp;&nbsp
 								</td>
 							</tr>
 						</table>
@@ -179,7 +188,7 @@
 			<br><br>
 
 			<!-- form2 시작  -->
-			<form name="form2" method="post"action="order_ok.jsp">
+			<form name="form2" method="post" action="${pageContext.servletContext.contextPath }/orderok">
 
 			<input type="hidden" name="o_name"   value="홍길동">
 			<input type="hidden" name="o_tel"    value="02-111-1111">

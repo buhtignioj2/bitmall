@@ -16,7 +16,7 @@
 <table width="800" border="0" cellspacing="0" cellpadding="0">
 	<form name="form1" method="get" action="">
 	<tr height="40">
-		<td width="200" valign="bottom">&nbsp 회원수 : <font color="#FF0000">20</font></td>
+		<td width="200" valign="bottom">&nbsp 회원수 : <font color="#FF0000">${size}</font></td>
 		<td width="200">&nbsp</td>
 		<td width="350" align="right" valign="bottom">
 			<select name="sel1" class="combo1">
@@ -36,15 +36,13 @@
 	<tr bgcolor="#CCCCCC" height="23"> 
 		<td width="100" align="center">ID</td>
 		<td width="100" align="center">이름</td>
-		<td width="100" align="center">전화</td>
 		<td width="100" align="center">핸드폰</td>
 		<td width="200" align="center">E-Mail</td>
 		<td width="100" align="center">회원구분</td>
 		<td width="100" align="center">수정/삭제</td>
 	</tr>
 	
-	
-	<tr bgcolor="#F2F2F2" height="23">	
+<!-- 	<tr bgcolor="#F2F2F2" height="23">	
 		<td width="100">&nbsp id1</td>	
 		<td width="100">&nbsp 홍길동</td>	
 		<td width="100">&nbsp 02 -123-1234</td>	
@@ -55,17 +53,16 @@
 			<a href="#">수정</a>/
 			<a href="#">삭제</a>
 		</td>
-	</tr>
+	</tr> -->
 	
-	<c:forEach var="vo" items="${list }" varStatus="status">
-	
+	<c:set var="length" value="${fn:length(vo) }" />
+	<c:forEach items="${ vo}" var="vo" varStatus="status">
 	<tr bgcolor="#F2F2F2" height="23">	
-		<td width="100">&nbsp ${vo.id }</td>	
-		<td width="100">&nbsp ${vo.name }</td>	
-		<td width="100">&nbsp ${vo.phone_number }</td>	
-		<td width="100">&nbsp ${vo.handphone }</td>	
-		<td width="200">&nbsp ${vo.email }</td>	
-		<td width="100" align="center">${vo.type }</td>	
+		<td width="100" align="center"> ${vo.id }</td>	
+		<td width="100" align="center"> ${vo.name }</td>	
+		<td width="100" align="center"> ${vo.phone }</td>	
+		<td width="200" align="center"> ${vo.email }</td>	
+		<td width="100" align="center">${vo.role }</td>	
 		<td width="100" align="center">
 			<a href="#">수정</a>/
 			<a href="#">삭제</a>

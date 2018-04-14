@@ -15,7 +15,7 @@
 <form name="form1" method="get" action="">
 <table width="800" border="0" cellspacing="0" cellpadding="0">
 	<tr height="40">
-		<td align="left"  width="150" valign="bottom">&nbsp 제품수 : <font color="#FF0000">20</font></td>
+		<td align="left"  width="150" valign="bottom">&nbsp 제품수 : <font color="#FF0000">${size }</font></td>
 		<td align="right" width="550" valign="bottom">
 			<select name="sel1">
 				<option value="0" >상품상태</option>
@@ -44,7 +44,7 @@
 		<td align="left" width="120" valign="bottom">
 			<input type="submit" value="검색">
 			&nbsp;
-			<a href="product_new"><input type="button" value="새상품"></a>
+			<a href="productnew"><input type="button" value="새상품"></a>
 		</td>
 	</tr>
 	<tr><td height="5"></td></tr>
@@ -58,23 +58,23 @@
 		<td width="280" align="center">제품명</td>
 		<td width="70"  align="center">판매가</td>
 		<td width="50"  align="center">상태</td>
-		<td width="120" align="center">이벤트</td>
 		<td width="80"  align="center">수정/삭제</td>
 	</tr>
-	
+	<c:set var="length" value="${fn:length(vo) }" />
+	<c:forEach items="${ vo}" var="vo" varStatus="status">
 	<tr bgcolor="#F2F2F2" height="23">	
-		<td width="100">&nbsp 코트</td>
-		<td width="100">&nbsp Coat001</td>
-		<td width="280">&nbsp 비싼 코트</td>	
-		<td width="70"  align="right">4,500,000 &nbsp</td>	
-		<td width="50"  align="center">판매중</td>	
-		<td width="120" align="center">&nbsp New Hit Sale(10%)</td>	
+		<td width="100" align="center">${vo.categoryName }</td>
+		<td width="100" align="center">${vo.no }</td>
+		<td width="280" align="center">${vo.name }</td>	
+		<td width="70"  align="center">${vo.price }</td>	
+		<td width="50"  align="center">${vo.status }</td>	
 		<td width="80"  align="center">
 			<a href="product_edit.jsp">수정</a>/
 			<a href="#">삭제</a>
 		</td>
 	</tr>
-	<tr bgcolor="#F2F2F2" height="23">	
+	</c:forEach>
+<!-- 	<tr bgcolor="#F2F2F2" height="23">	
 		<td width="100">&nbsp 코트</td>
 		<td width="100">&nbsp Coat001</td>
 		<td width="280">&nbsp 비싼 코트</td>	
@@ -85,7 +85,7 @@
 			<a href="product_edit.jsp">수정</a>/
 			<a href="#">삭제</a>
 		</td>
-	</tr>	
+	</tr>	 -->
 </table>
 
 <br>

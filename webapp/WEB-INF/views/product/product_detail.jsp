@@ -7,6 +7,7 @@
 	<title>비트닷컴 쇼핑몰</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+
 </head>
 <body style="margin:0">
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
@@ -33,10 +34,10 @@
 			</table>
 
 			<!-- form2 시작  -->
-			<form name="form2" method="post" action="">
-			<input type="hidden" name="no" value="0000">
-			<input type="hidden" name="kind" value="insert">
-
+			<form name="form2" method="post" id="form2" action=" ${pageContext.servletContext.contextPath }/cart">
+			<input type="hidden" name="no" value="${vo.no }">
+			<input type="hidden" name="memberNo" value="${authUser.no}">
+		
 			<table border="0" cellpadding="0" cellspacing="0" width="745">
 				<tr>
 					<td width="335" align="center" valign="top">
@@ -44,7 +45,7 @@
 						<table border="0" cellpadding="0" cellspacing="1" width="315" height="315" bgcolor="D4D0C8">
 							<tr>
 								<td bgcolor="white" align="center">
-									<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L.jpg" height="315" border="0" align="absmiddle" ONCLICK="Zoomimage('0000')" STYLE="cursor:hand">
+									<img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" height="315" border="0" align="absmiddle" ONCLICK="Zoomimage('0000')" STYLE="cursor:hand">
 								</td>
 							</tr>
 						</table>
@@ -54,13 +55,14 @@
 						<table border="0" cellpadding="0" cellspacing="0" width="370" class="cmfont">
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
 							<tr>
-								<td width="80" height="45" style="padding-left:10px">
+								<td width="80" height="45" style="padding-left:10px" >
 									<img src="${pageContext.servletContext.contextPath }/assets/images/i_dot1.gif" width="3" height="3" border="0" align="absmiddle">
 									<font color="666666"><b>제품명</b></font>
 								</td>
 								<td width="1" bgcolor="E8E7EA"></td>
-								<td style="padding-left:10px">
-									<font color="282828">제품명1</font><br>
+								<td style="padding-left:10px" >
+									<font color="282828" >${vo.name }</font><br>
+										<input type="hidden" name="name" value="${vo.name }">
 									<img src="${pageContext.servletContext.contextPath }/assets/images/i_hit.gif" align="absmiddle" vspace="1"> <img src="${pageContext.servletContext.contextPath }/assets/images/i_new.gif" align="absmiddle" vspace="1"> 
 								</td>
 							</tr>
@@ -72,7 +74,9 @@
 									<font color="666666"><b>소비자가</b></font>
 								</td>
 								<td width="1" bgcolor="E8E7EA"></td>
-								<td width="289" style="padding-left:10px"><font color="666666">62,000 원</font></td>
+								<td width="289" style="padding-left:10px"><font color="666666">${vo.price }</font>
+								<input type="hidden" name="price" value="${vo.price }">
+								</td>
 							</tr>
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
 							<!-- 판매가 -->
@@ -82,11 +86,13 @@
 									<font color="666666"><b>판매가</b></font>
 								</td>
 								<td width="1" bgcolor="E8E7EA"></td>
-								<td style="padding-left:10px"><font color="0288DD"><b>62,000 원</b></font></td>
+								<td style="padding-left:10px"><font color="0288DD"><b>${vo.price }</b></font>
+								<input type="hidden" name="price" value="${vo.price }">
+								</td>
 							</tr>
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
 							<!-- 옵션 -->
-							<tr>
+<%-- 							<tr>
 								<td width="80" height="35" style="padding-left:10px">
 									<img src="${pageContext.servletContext.contextPath }/assets/images/i_dot1.gif" width="3" height="3" border="0" align="absmiddle">
 									<font color="666666"><b>옵션선택</b></font>
@@ -106,7 +112,7 @@
 									</select>
 								</td>
 							</tr>
-							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
+							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr> --%>
 							<!-- 수량 -->
 							<tr>
 								<td width="80" height="35" style="padding-left:10px">
@@ -115,7 +121,7 @@
 								</td>
 								<td width="1" bgcolor="E8E7EA"></td>
 								<td style="padding-left:10px">
-									<input type="text" name="num" value="1" size="3" maxlength="5" class="cmfont1"> <font color="666666">개</font>
+									<input type="text" name="count" id="count" value="1" size="3" maxlength="5" class="cmfont1"> <font color="666666">개</font>
 								</td>
 							</tr>
 							<tr><td colspan="3" bgcolor="E8E7EA"></td></tr>
@@ -123,8 +129,8 @@
 						<table border="0" cellpadding="0" cellspacing="0" width="370" class="cmfont">
 							<tr>
 								<td height="70" align="center">
-									<a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order.gif" border="0" align="absmiddle"></a>&nbsp;&nbsp;&nbsp;
-									<a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_cart.gif"  border="0" align="absmiddle"></a>
+									<a href="${pageContext.servletContext.contextPath }/baroorder/${vo.no}"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order.gif" border="0" align="absmiddle"></a>&nbsp;&nbsp;&nbsp;
+									<a href="#"><input type="image" id="btn-cart" src="${pageContext.servletContext.contextPath }/assets/images/b_cart.gif"  border="0" align="absmiddle"></a>
 								</td>
 							</tr>
 						</table>
@@ -160,15 +166,11 @@
 				<tr><td height="13"></td></tr>
 				<tr>
 					<td height="200" valign=top style="line-height:14pt">
-						본제품의 상세설명은 다음과 같습니다.
+						${vo.content }
 						<br>
 						<br>
 						<center>
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg"><br><br><br>
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg">&nbsp
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg"><br><br>
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg">&nbsp
-							<img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_L1.jpg"><br><br>
+							<img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}">
 						</center>
 					</td>
 				</tr>

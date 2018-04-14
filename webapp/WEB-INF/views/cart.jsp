@@ -7,6 +7,46 @@
 	<title>비트닷컴 쇼핑몰</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
+	<!-- jquery import -->
+<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
+
+<!-- execute code -->
+<script>
+$(function(){
+	$("#btn-update").click(function(){
+		var count = $("#count").val();
+		
+		if( id == "" ) {
+			return;
+		}
+		console.log(count);
+
+		$.ajax({
+			url: "${pageContext.servletContext.contextPath}/api/member/checkeid?id=" + id,
+			dataType: "json",
+			type: "get",
+			data: "",
+			success: function( response ){
+				if( response.result != "success" ) {
+					console.log( response.message );
+					return;
+				}
+				
+				if( response.data == "exist" ) {
+					alert( "이미 사용중인 아이디 입니다." );
+					 $("#id").val("").focus();
+					return;
+				}
+				$("#img-check").show();
+				$("#btn-checkeid").hide();
+			},
+			error: function( xhr, status, e ) {
+				console.error( status + ":" + e );
+			}
+		}); 
+	});
+});
+</script>
 </head>
 <body style="margin:0">
 <jsp:include page="/WEB-INF/views/include/head.jsp"/>
@@ -23,7 +63,7 @@
 <!-------------------------------------------------------------------------------------------->	
 <!-- 시작 : 다른 웹페이지 삽입할 부분                                                       -->
 <!-------------------------------------------------------------------------------------------->	
-
+	
 			<table border="0" cellpadding="0" cellspacing="0" width="747">
 				<tr><td height="13"></td></tr>
 			</table>
@@ -54,33 +94,39 @@
 					<td width="90"  align="center">합계</td>
 					<td width="50"  align="center">삭제</td>
 				</tr>
+		
+				<c:set var="sum" value="0" />
+				<c:forEach items="${ list}" var="vo" varStatus="status">
 				<tr>
 					<form name="form2" method="post" action="">
 					<td height="60" align="center" bgcolor="#FFFFFF">
+					
 						<table cellpadding="0" cellspacing="0" width="100%">
 							<tr>
 								<td width="60">
-									<a href="product_detail.jsp?product_num=0000"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="50" height="50" border="0"></a>
+									<a href="product_detail/${vo.no }"><img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" width="50" height="50" border="0"></a>
 								</td>
 								<td class="cmfont">
-									<a href="product_detail.jsp?product_num=0000">제품명</a><br>
-									<font color="#0066CC">[옵션사항]</font> 옵션1
+									<a href="product_detail/${vo.no }">${vo.name }</a><br>
+									<!-- <font color="#0066CC">[옵션사항]</font> 옵션1 -->
 								</td>
 							</tr>
 						</table>
 					</td>
 					<td align="center" bgcolor="#FFFFFF">
-						<input type="text" name="num1" size="3" value="1" class="cmfont1">&nbsp<font color="#464646">개</font>
+						<input type="text" size="3" id="count" name="count" value="${vo.count }" class="cmfont1">&nbsp<font color="#464646">개</font>
 					</td>
-					<td align="center" bgcolor="#FFFFFF"><font color="#464646">70,200</font></td>
-					<td align="center" bgcolor="#FFFFFF"><font color="#464646">70,200</font></td>
+					<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.price }</font></td>
+					<td align="center" bgcolor="#FFFFFF"><font color="#464646">${vo.price * vo.count }</font></td>
 					<td align="center" bgcolor="#FFFFFF">
-						<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/b_edit1.gif" border="0">&nbsp<br>
-						<a href = "#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_delete1.gif" border="0"></a>&nbsp
+						<a href = "#"<%-- '${pageContext.servletContext.contextPath }/cart/update' --%>><input type="image" id="btn-update" src="${pageContext.servletContext.contextPath }/assets/images/b_edit1.gif" border="0" ><br>
+						<a href = "#">&nbsp<img src="${pageContext.servletContext.contextPath }/assets/images/b_delete1.gif" border="0"></a>&nbsp
 					</td>
 					</form>
 				</tr>
-				<tr>
+				<c:set var= "sum" value="${sum + (vo.price * vo.count)}"/>
+				</c:forEach>
+				<%-- <tr>
 					<form name="form2" method="post" action="">
 					<td height="60" align="center" bgcolor="#FFFFFF">
 						<table cellpadding="0" cellspacing="0" width="100%">
@@ -105,14 +151,14 @@
 						<a href = "#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_delete1.gif" border="0"></a>&nbsp
 					</td>
 					</form>
-				</tr>
+				</tr> --%>
 				<tr>
 					<td colspan="5" bgcolor="#F0F0F0">
 						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="cmfont">
 							<tr>
 								<td bgcolor="#F0F0F0"><img src="${pageContext.servletContext.contextPath }/assets/images/cart_image1.gif" border="0"></td>
 								<td align="right" bgcolor="#F0F0F0">
-									<font color="#0066CC"><b>총 합계금액</font></b> : 상품대금(132,000원) + 배송료(2,500원) = <font color="#FF3333"><b>134,500원</b></font>&nbsp;&nbsp
+									<font color="#0066CC"><b>총 합계금액</font></b> : 상품대금(${sum }) + 배송료(2,500원) = <font color="#FF3333"><b>${sum+2500 }원</b></font>&nbsp;&nbsp
 								</td>
 							</tr>
 						</table>
@@ -122,9 +168,9 @@
 			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
 				<tr height="44">
 					<td width="710" align="center" valign="middle">
-						<a href="index.jsp"><img src="${pageContext.servletContext.contextPath }/assets/images/b_shopping.gif" border="0"></a>&nbsp;&nbsp;
-						<a href="#"><img src="${pageContext.servletContext.contextPath }/assets/images/b_cartalldel.gif" width="103" height="26" border="0"></a>&nbsp;&nbsp;
-						<a href="order"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order1.gif" border="0"></a>
+						<a href="${pageContext.servletContext.contextPath }"><img src="${pageContext.servletContext.contextPath }/assets/images/b_shopping.gif" border="0"></a>&nbsp;&nbsp;
+						<a href="${pageContext.servletContext.contextPath }/cart/delete"><img src="${pageContext.servletContext.contextPath }/assets/images/b_cartalldel.gif" width="103" height="26" border="0"></a>&nbsp;&nbsp;
+						<a href="${pageContext.servletContext.contextPath }/order"><img src="${pageContext.servletContext.contextPath }/assets/images/b_order1.gif" border="0"></a>
 					</td>
 				</tr>
 			</table>
