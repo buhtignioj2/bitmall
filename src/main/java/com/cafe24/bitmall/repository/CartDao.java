@@ -39,4 +39,8 @@ public class CartDao {
 	return sqlSession.delete( "cart.deleteOne", no ) == 1;
     }
 
+    public boolean insertcopy(CartDTO cartDto) {
+	return sqlSession.insert( "cart.insertcopy", cartDto ) == 1;	
+    }
+
 }

@@ -9,6 +9,13 @@
 	]]>
 	</insert>
 	
+	<insert id="insertcopy" parameterType="cartdto">
+	<![CDATA[
+		insert into cartcopy
+		values( #{no}, #{memberNo}, #{count} )
+	]]>
+	</insert>
+	
 	<select id="getList" resultType="cartdto">
 	<![CDATA[
 		select product.name, cart.member_no, cart.product_no, sum(cart.`count`) as count,
@@ -21,17 +28,27 @@
 	]]>
 	</select>
 	
-	<select id="getListByNo" resultType="cartdto" parameterType="long">
+<!-- 	<select id="getListByNo" resultType="cartdto" parameterType="long">
+	<![CDATA[
+		select product.no, product.name, c.member_no, c.product_no, sum(c.`count`)as count,
+				 product.price, image.new_name as newName
+		  from product, cartcopy c, image
+		 where #{no} = c.member_no
+		   and c.product_no = product.`no`
+		   and product.`no` = image.product_no
+		 group by c.product_no
+	]]>
+	</select> -->
+ 	<select id="getListByNo" resultType="cartdto" parameterType="long">
 	<![CDATA[
 		select product.no, product.name, cart.member_no, cart.product_no, sum(cart.`count`)as count,
-				 product.price, image.new_name as newName
-		  from product, cart, image
-		 where #{no} = cart.member_no
+				 product.price, product.newName as newName
+		  from product, cart
+		 where cart.member_no = #{no}
 		   and cart.product_no = product.`no`
-		   and product.`no` = image.product_no
 		 group by cart.product_no
 	]]>
-	</select>
+	</select> 
 	
 	<delete id="deleteByNo" parameterType="long">
 	<![CDATA[

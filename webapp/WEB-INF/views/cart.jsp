@@ -12,40 +12,6 @@
 
 <!-- execute code -->
 <script>
-$(function(){
-	$("#btn-update").click(function(){
-		var count = $("#count").val();
-		
-		if( id == "" ) {
-			return;
-		}
-		console.log(count);
-
-		$.ajax({
-			url: "${pageContext.servletContext.contextPath}/api/member/checkeid?id=" + id,
-			dataType: "json",
-			type: "get",
-			data: "",
-			success: function( response ){
-				if( response.result != "success" ) {
-					console.log( response.message );
-					return;
-				}
-				
-				if( response.data == "exist" ) {
-					alert( "이미 사용중인 아이디 입니다." );
-					 $("#id").val("").focus();
-					return;
-				}
-				$("#img-check").show();
-				$("#btn-checkeid").hide();
-			},
-			error: function( xhr, status, e ) {
-				console.error( status + ":" + e );
-			}
-		}); 
-	});
-});
 </script>
 </head>
 <body style="margin:0">
@@ -104,7 +70,7 @@ $(function(){
 						<table cellpadding="0" cellspacing="0" width="100%">
 							<tr>
 								<td width="60">
-									<a href="product_detail/${vo.no }"><img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" width="50" height="50" border="0"></a>
+									<a href="product_detail/${vo.no }"><img src="${pageContext.request.contextPath}/uploads/images/${vo.newName}" width="50" height="50" border="0"></a>
 								</td>
 								<td class="cmfont">
 									<a href="product_detail/${vo.no }">${vo.name }</a><br>

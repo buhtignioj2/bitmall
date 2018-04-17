@@ -23,10 +23,6 @@ public class CartService {
 	return list;
     }
     public List<CartDTO> getList(Long no) {
-	System.out.println( "@@@@@@@@@@@@@@@@@@@@@@@@@" );
-	System.out.println( "@@@@@@@@@@@@@@@@@@@@@@@@@" );
-	System.out.println( "@@@@@@@@@@@@@@@@@@@@@@@@@" );
-	System.out.println( "@@@@@@@@@@@@@@@@@@@@@@@@@" );
 	return cartDao.getList(no);
     }
     public void delete(Long no) {
@@ -37,6 +33,9 @@ public class CartService {
     }
     public void delete(CartDTO cartDto) {
 	cartDao.deleteOne( cartDto );		
+    }
+    public void setCartCopy(CartDTO cartDto) {
+	cartDao.insertcopy(cartDto);	
     }
 
 }

@@ -23,16 +23,19 @@
 <!-------------------------------------------------------------------------------------------->	
 <!-- 시작 : 다른 웹페이지 삽입할 부분                                                       -->
 <!-------------------------------------------------------------------------------------------->	
+	<!-- jquery import -->
+<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
 
 			<!--  현재 페이지 자바스크립  -------------------------------------------->
 			<script language="javascript">
-
+			
 			function Check_Value() 
 			{
-				if (form2.pay_method[0].checked)
+				
+				if (form2.method[0].checked)
 				{
-					if (!form2.card_kind.value) {
-						alert("카드종류를 선택하세요.");	form2.card_kind.focus();	return;
+					if (!form2.cardKinds.value) {
+						alert("카드종류를 선택하세요.");	form2.cardKinds.focus();	return;
 					}
 					if (!form2.card_no1.value || form2.card_no1.value.length!=4) {
 						alert("카드번호를 입력하세요.");	form2.card_no1.focus();	return;
@@ -58,21 +61,21 @@
 				}
 				else
 				{
-					if (!form2.bank_kind.value) {
-						alert("입금할 은행을 선택하세요.");	form2.bank_kind.focus();	return;
+					if (!form2.bankKinds.value) {
+						alert("입금할 은행을 선택하세요.");	form2.bankKinds.focus();	return;
 					}
-					if (!form2.bank_sender.value) {
-						alert("입금자 이름을 입력하세요.");	form2.bank_sender.focus();	return;
+					if (!form2.bankSender.value) {
+						alert("입금자 이름을 입력하세요.");	form2.bankSender.focus();	return;
 					}
 				}
-				
+	
 				form2.submit();
 			}
 
 			function PaySel(n) 
 			{
 				if (n == 0) {
-					form2.card_kind.disabled = false;
+					form2.cardKinds.disabled = false;
 					form2.card_no1.disabled = false;
 					form2.card_no2.disabled = false;
 					form2.card_no3.disabled = false;
@@ -80,12 +83,12 @@
 					form2.card_year.disabled = false;
 					form2.card_month.disabled = false;
 					form2.card_pw.disabled = false;
-					form2.bank_kind.disabled = true;
-					form2.bank_sender.disabled = true;
-					form2.card_halbu.disabled = false;
+					form2.bankKinds.disabled = true;
+					form2.bankSender.disabled = true;
+					form2.halbu.disabled = false;
 				}
 				else {
-					form2.card_kind.disabled = true;
+					form2.cardKinds.disabled = true;
 					form2.card_no1.disabled = true;
 					form2.card_no2.disabled = true;
 					form2.card_no3.disabled = true;
@@ -93,9 +96,9 @@
 					form2.card_year.disabled = true;
 					form2.card_month.disabled = true;
 					form2.card_pw.disabled = true;
-					form2.bank_kind.disabled = false;
-					form2.bank_sender.disabled = false;
-					form2.card_halbu.disabled = true;
+					form2.bankKinds.disabled = false;
+					form2.bankSender.disabled = false;
+					form2.halbu.disabled = true;
 				}
 			}
 
@@ -124,13 +127,15 @@
 					<td width="100" align="center">합계</td>
 				</tr>
 				<c:set var="sum" value="0" />
+				<c:set var="cnt" value="0" />
 				<c:forEach items="${ list}" var="vo" varStatus="status">
+				<input type="hidden" name="pno" value="${vo.no }"/>
 				<tr bgcolor="#FFFFFF">
 					<td height="60" align="center">
 						<table cellpadding="0" cellspacing="0" width="100%">
 							<tr>
 								<td width="60">
-									<a href="product_detail.jsp?no=0000"><img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" width="50" height="50" border="0"></a>
+									<a href="product_detail.jsp?no=0000"><img src="${pageContext.request.contextPath}/uploads/images/${vo.newName}" width="50" height="50" border="0"></a>
 								</td>
 								<td class="cmfont">
 									<a href="product_detail.jsp?no=0000"><font color="#0066CC">${vo.name }</font></a><br>
@@ -145,27 +150,10 @@
 					<td align="center"><font color="#464646">${vo.price }</font> 원</td>
 					<td align="center"><font color="#464646">${vo.price }</font> 원</td>
 				</tr>
+				<c:set var= "cnt" value="${ cnt + vo.count }"/>
 				<c:set var= "sum" value="${sum + (vo.price * vo.count)}"/>
+				
 				</c:forEach>
-				<%-- <tr bgcolor="#FFFFFF">
-					<td height="60" align="center">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td width="60">
-									<a href="product_detail.jsp?no=0000"><img src="${pageContext.servletContext.contextPath }/assets/images/product/0000_s.jpg" width="50" height="50" border="0"></a>
-								</td>
-								<td class="cmfont">
-									<a href="product_detail.jsp?no=0000"><font color="#0066CC">제품명2</font></a><br>
-									[옵션]</font> 옵션2
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td align="center"><font color="#464646">1&nbsp개</font></td>
-					<td align="center"><font color="#464646">60,000</font> 원</td>
-					<td align="center"><font color="#464646">60,000</font> 원</td>
-				</tr>
-				 --%>
 				<tr>
 					<td colspan="5" bgcolor="#F0F0F0">
 						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="cmfont">
@@ -188,7 +176,7 @@
 			<br><br>
 
 			<!-- form2 시작  -->
-			<form name="form2" method="post" action="${pageContext.servletContext.contextPath }/orderok">
+			<form name="form2" method="post" action="${pageContext.servletContext.contextPath }/orderpay">
 
 			<input type="hidden" name="o_name"   value="홍길동">
 			<input type="hidden" name="o_tel"    value="02-111-1111">
@@ -204,7 +192,11 @@
 			<input type="hidden" name="r_zip"    value="111-111">
 			<input type="hidden" name="r_addr"   value="서울 서초구 서초대로 74길 33 비트빌딩">
 			<input type="hidden" name="o_etc"    value="빠른 배송 부탁.">
+			<input type="hidden" name="price"    value="${sum + 2500}">
+			<input type="hidden" name="count" 	 value="${cnt }">
+			<input type="hidden" name="orderNo" id="orderVo" value="${orderNo }">
 
+			
 			<!-- 결재방법 선택 및 입력 -->
 			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
 				<tr height="3" bgcolor="#CCCCCC"><td></td></tr>
@@ -221,8 +213,8 @@
 								<td width="150"><b>결재방법 선택</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<input type="radio" name="pay_method" onclick="javascript:PaySel(0);" checked>카드 &nbsp;
-									<input type="radio" name="pay_method" onclick="javascript:PaySel(1);">무통장
+									<input type="radio" name="method" value="카드" onclick="javascript:PaySel(0);" checked>카드 &nbsp;
+									<input type="radio" name="method" value="무통장"onclick="javascript:PaySel(1);">무통장
 								</td>
 							</tr>
 						</table>
@@ -246,12 +238,12 @@
 								<td width="150"><b>카드종류</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<select name="card_kind" class="cmfont1">
+									<select name="cardKinds" class="cmfont1">
 										<option value="">카드종류를 선택하세요.</option>
-										<option value="1">국민카드</option>
-										<option value="2">신한카드</option>
-										<option value="3">우리카드</option>
-										<option value="4">하나카드</option>
+										<option value="국민카드">국민카드</option>
+										<option value="신한카드">신한카드</option>
+										<option value="우리카드">우리카드</option>
+										<option value="하나카드">하나카드</option>
 									</select>
 								</td>
 							</tr>
@@ -284,7 +276,7 @@
 								<td width="150"><b>할부</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<select name="card_halbu" class="cmfont1">
+									<select name="halbu" class="cmfont1">
 										<option value="0">일시불</option>
 										<option value="3">3 개월</option>
 										<option value="6">6 개월</option>
@@ -314,10 +306,10 @@
 								<td width="150"><b>은행선택</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<select name="bank_kind"  class="cmfont1" disabled>
+									<select name="bankKinds"  class="cmfont1" disabled>
 										<option value="">입금할 은행을 선택하세요.</option>
-										<option value="1">국민은행 000-00000-0000</option>
-										<option value="2">신한은행 000-00000-0000</option>
+										<option value="국민은행">국민은행 000-00000-0000</option>
+										<option value="신한은행">신한은행 000-00000-0000</option>
 									</select>
 								</td>
 							</tr>
@@ -325,7 +317,7 @@
 								<td width="150"><b>입금자 이름</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<input type="text" name="bank_sender" size="15" maxlength="20" value="" class="cmfont1" disabled>
+									<input type="text" name="bankSender" size="15" maxlength="20" value="" class="cmfont1" disabled>
 								</td>
 							</tr>
 						</table>
@@ -339,7 +331,7 @@
 				<tr height="3" bgcolor="#CCCCCC"><td></td></tr>
 				<tr height="10"><td></td></tr>
 			</table>
-
+			<input type="hidden" name="cnt" value=${cnt }>
 			</form>
 
 			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">

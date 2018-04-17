@@ -4,12 +4,9 @@
 <mapper namespace="product">
 	<select id="getByNo" parameterType="long" resultType="productvo">
 	<![CDATA[
-		select p.`no`, p.name, p.price, p.coname, p.content, p.`status`, p.category_no as categoryNo, i.new_name as newName
-	      from product p, image i
+		select p.`no`, p.name, p.price, p.coname, p.content, p.`status`, p.category_no as categoryNo, p.newName as newName
+	      from product p
 	 	 where category_no = #{no}
-	  	   and p.`no` = i.product_no
-	  group by i.product_no
-	    having p.`no` = i.product_no
 	]]>
 		<!-- select no, name, price, coname, content, status, category_no as categoryNo from product where category_no = #{no}; -->
 	</select>
@@ -17,17 +14,16 @@
 	<select id="getOne" parameterType="long" resultType="productvo">
 	<![CDATA[
 		select p.`no`, p.name, p.price, p.coname, p.content, p.`status`, 
-				 p.category_no as categoryNo, i.new_name as newName
-		from product p, image i
+				 p.category_no as categoryNo, p.newName as newName
+		from product p
 		where p.`no` = #{no}
-		  and i.product_no = #{no}
 	]]>
 		<!-- select no, name, price, coname, content, status, category_no as categoryNo from product where no = #{no}; -->
 	</select>
 	
 	<select id="getAll" resultType="productvo">
 	<![CDATA[
-		select p.no, p.name, p.price, p.coname, p.content, p.status, c.name as categoryName 
+		select p.no, p.name, p.price, p.coname, p.content, p.status, p.newName as newName, c.name as categoryName 
 		  from product p, category c
 		 where c.`no` = p.category_no
 	  order by p.no desc
@@ -36,9 +32,8 @@
 	
 	<select id="getAllList" resultType="productvo">
 	<![CDATA[
-		select p.no, p.name, p.price, p.coname, p.content, p.status, i.new_name as newName 
-		  from product p, image i
-		 where i.product_no = p.no
+		select p.no, p.name, p.price, p.coname, p.content, p.status, p.newName as newName 
+		  from product p
 	  order by p.no desc
 	]]>
 	</select>
@@ -46,7 +41,14 @@
 	<insert id="insert" parameterType="productvo">
 	<![CDATA[
 		insert into product 
-		values( null, #{name}, #{price}, #{coname}, #{content}, #{status}, #{categoryNo});
+		values( null, #{name}, #{price}, #{coname}, #{content}, #{status}, #{categoryNo}, #{newName});
 	]]>
 	</insert>
+	
+	<update id="update" parameterType="productvo">
+		<![CDATA[
+			insert into product 
+			values( null, #{name}, #{price}, #{coname}, #{content}, #{status}, #{newName}, #{categoryNo});
+		]]>
+	</update>
 </mapper>

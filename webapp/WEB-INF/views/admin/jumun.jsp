@@ -150,23 +150,67 @@
     <td width="135" align="center">주문상태</td>
     <td width="50"  align="center">삭제</td>
 	</tr>
+	<c:forEach items="${ list}" var="vo" varStatus="status">
 	<tr bgcolor="#F2F2F2" height="23">
 		<form method="post" action=""> 
-		<td width="70"  align="center"><a href="jumun_info.jsp?no=0803050004">0803050004</a></td>
-		<td width="70"  align="center">2008-03-05</td>
-		<td width="250" align="left">&nbsp;파란 브라우스 외 1</td>	
-		<td width="40" align="center">2</td>	
-		<td width="70"  align="right">35,000&nbsp</td>	
-		<td width="65"  align="center">홍길동</td>	
-		<td width="50"  align="center">카드</td>	
+		<td width="70"  align="center"><a href="jumun_info.jsp?no=0803050004">${vo.no }</a></td>
+		<td width="70"  align="center">${vo.date }</td>
+		<td width="250" align="left">${vo.name }외 ${vo.count-1 }개</td>	
+		<td width="40" align="center">${vo.count }</td>	
+		<td width="70"  align="right">${vo.price }&nbsp원</td>	
+		<td width="65"  align="center">${vo.bankSender }</td>	
+		<td width="50"  align="center">${vo.method }</td>	
 		<td width="135" align="center" valign="bottom">
 			<select name="state" style="font-size:9pt; color:black">
+			<c:if test="${vo.state eq '주문신청'}">
 				<option value="1" selected>주문신청</option>
-				<option value="2">주문확인</option>
+				<option value="2" >주문확인</option>
 				<option value="3">입금확인</option>
-				<option value="4">배송중</option>
-				<option value="5">주문완료</option>
-				<option value="6">주문취소</option>
+				<option value="4" >배송중</option>
+				<option value="5" >주문완료</option>
+				<option value="6" >주문취소</option>
+			</c:if>
+			<c:if test="${vo.state eq '주문확인'}">
+				<option value="1" selected>주문신청</option>
+				<option value="2" selected>주문확인</option>
+				<option value="3">입금확인</option>
+				<option value="4" >배송중</option>
+				<option value="5" >주문완료</option>
+				<option value="6" >주문취소</option>
+			</c:if>
+			<c:if test="${vo.state eq '입금확인'}">
+				<option value="1" selected>주문신청</option>
+				<option value="2" >주문확인</option>
+				<option value="3" selected>입금확인</option>
+				<option value="4" >배송중</option>
+				<option value="5" >주문완료</option>
+				<option value="6" >주문취소</option>
+			</c:if>
+			<c:if test="${vo.state eq '배송중'}">
+				<option value="1" selected>주문신청</option>
+				<option value="2" >주문확인</option>
+				<option value="3" >입금확인</option>
+				<option value="4" selected >배송중</option>
+				<option value="5" >주문완료</option>
+				<option value="6" >주문취소</option>
+			</c:if>
+			<c:if test="${vo.state eq '주문완료'}">
+				<option value="1" selected>주문신청</option>
+				<option value="2" >주문확인</option>
+				<option value="3">입금확인</option>
+				<option value="4" >배송중</option>
+				<option value="5" selected>주문완료</option>
+				<option value="6" >주문취소</option>
+			</c:if>
+			<c:if test="${vo.state eq '주문취소'}">
+				<option value="1" selected>주문신청</option>
+				<option value="2" >주문확인</option>
+				<option value="3">입금확인</option>
+				<option value="4" >배송중</option>
+				<option value="5" >주문완료</option>
+				<option value="6" selected>주문취소</option>
+			</c:if>
+				
 			</select>&nbsp;
 			<input type="image" src="${pageContext.servletContext.contextPath }/assets/images/admin/b_edit1.gif" border="0">
 		</td>	
@@ -175,7 +219,8 @@
 		</td>
 		</form>
 	</tr>
-	<tr bgcolor="#F2F2F2" height="23">
+	</c:forEach>
+	<%-- <tr bgcolor="#F2F2F2" height="23">
 		<form method="post" action="">  
 		<td width="70"  align="center"><a href="jumun_info.jsp?no=0803030002">0803030002</a></td>
 		<td width="70"  align="center">2008-03-03</td>
@@ -224,7 +269,7 @@
 			<a href=""><img src="${pageContext.servletContext.contextPath }/assets/images/admin/b_delete1.gif" border="0"></a>
 		</td>
 		</form>
-	</tr>
+	</tr> --%>
 </table>
 <br>
 <table width="800" border="0" cellpadding="0" cellspacing="0">

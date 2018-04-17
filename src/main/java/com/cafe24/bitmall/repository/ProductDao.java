@@ -33,5 +33,9 @@ public class ProductDao {
     public List<ProductVo> getAllList() {
 	return sqlSession.selectList("product.getAllList");
     }
+    
+    public void update(ProductVo vo) {
+	sqlSession.insert( "product.update", vo );
+    }
 
 }

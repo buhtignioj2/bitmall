@@ -76,7 +76,7 @@
 						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
 							<tr> 
 								<td align="center"> 
-									<a href="${pageContext.servletContext.contextPath }/product_detail/${vo.no}"><img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" width="120" height="140" border="0"></a>
+									<a href="${pageContext.servletContext.contextPath }/product_detail/${vo.no}"><img src="${pageContext.request.contextPath}/uploads/images/${vo.newName}" width="120" height="140" border="0"></a>
 								</td>
 							</tr>
 							<tr><td height="5"></td></tr>

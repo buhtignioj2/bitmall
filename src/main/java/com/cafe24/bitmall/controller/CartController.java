@@ -25,9 +25,22 @@ public class CartController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String cart(Model model, @AuthUser MemberVo authUser) {
+	if( authUser == null ) {
+	    return "redirect:/";
+	}
 	List<CartDTO> list = cartService.getList( authUser.getNo() );
 	model.addAttribute( "list", list );
-	
+	System.out.println( list );
+	System.out.println( list );
+	System.out.println( list );
+	System.out.println( list );
+	System.out.println( list );
+	System.out.println( list );
+	System.out.println( list );
+	System.out.println( list );
+	System.out.println( list );
+	System.out.println( list );
+	System.out.println( authUser );
 	return "cart";
     }
 
@@ -35,7 +48,6 @@ public class CartController {
     public String cart(@ModelAttribute CartDTO cartDto) {
 	cartDto.setTotalCount( cartDto.getPrice() * cartDto.getCount() );
 	cartService.setCart( cartDto );
-
 	return "redirect:/cart";
     }
 

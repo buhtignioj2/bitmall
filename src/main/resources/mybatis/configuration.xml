@@ -6,11 +6,18 @@
 	 	<typeAlias alias="productvo" type="com.cafe24.bitmall.vo.ProductVo"/>
 	 	<typeAlias alias="categoryvo" type="com.cafe24.bitmall.vo.CategoryVo"/>
 	 	<typeAlias alias="cartdto" type="com.cafe24.jblog.dto.CartDTO"/>
+	 	<typeAlias alias="buyervo" type="com.cafe24.bitmall.vo.BuyerVo"/>
+	 	<typeAlias alias="recipientvo" type="com.cafe24.bitmall.vo.RecipientVo"/>
+	 	<typeAlias alias="ordervo" type="com.cafe24.bitmall.vo.OrderVo"/>
+	 	<typeAlias alias="paymenthistoryvo" type="com.cafe24.bitmall.vo.PaymenthistoryVo"/>
+	 	<typeAlias alias="povo" type="com.cafe24.bitmall.vo.PoVo"/>
+	 	<typeAlias alias="paymenthistoryDTO" type="com.cafe24.bitmall.vo.PaymenthistoryDTO"/>
 	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/member.xml" /> 
 		<mapper resource="mybatis/mappers/product.xml" /> 
 		<mapper resource="mybatis/mappers/category.xml" /> 
 		<mapper resource="mybatis/mappers/cart.xml" /> 
+		<mapper resource="mybatis/mappers/order.xml" /> 
 	</mappers> 
 </configuration>

@@ -42,7 +42,7 @@
 						<table border="0" cellpadding="0" cellspacing="0" width="100" class="cmfont">
 							<tr> 
 								<td align="center"> 
-									<a href="product_detail.jsp?no=109469"><img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" width="120" height="140" border="0"></a>
+									<a href="product_detail/${vo.no }"><img src="${pageContext.request.contextPath}/uploads/images/${vo.newName}" width="120" height="140" border="0"></a>
 								</td>
 							</tr>
 							<tr><td height="5"></td></tr>

@@ -1,33 +1,27 @@
 package com.cafe24.bitmall.vo;
 
 public class CartVo {
-    private Long product_no;
-    private Long member_no;
+    private Long productNo;
+    private Long memberNo;
     private Long count;
     private Long price;
-    
+
     @Override
     public String toString() {
-	return "CartVo [product_no=" + product_no + ", member_no=" + member_no + ", count=" + count + ", price=" + price
+	return "CartVo [productNo=" + productNo + ", memberNo=" + memberNo + ", count=" + count + ", price=" + price
 		+ "]";
     }
-    public Long getPrice() {
-        return price;
+    public Long getProductNo() {
+        return productNo;
     }
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setProductNo(Long productNo) {
+        this.productNo = productNo;
     }
-    public Long getProduct_no() {
-        return product_no;
+    public Long getMemberNo() {
+        return memberNo;
     }
-    public void setProduct_no(Long product_no) {
-        this.product_no = product_no;
-    }
-    public Long getMember_no() {
-        return member_no;
-    }
-    public void setMember_no(Long member_no) {
-        this.member_no = member_no;
+    public void setMemberNo(Long memberNo) {
+        this.memberNo = memberNo;
     }
     public Long getCount() {
         return count;
@@ -35,5 +29,10 @@ public class CartVo {
     public void setCount(Long count) {
         this.count = count;
     }
-    
+    public Long getPrice() {
+        return price;
+    }
+    public void setPrice(Long price) {
+        this.price = price;
+    }
 }

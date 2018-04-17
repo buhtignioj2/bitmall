@@ -2,7 +2,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<table width="959" height="25" border="0" cellspacing="0" cellpadding="0" align="center">
+<%-- <table width="959" height="25" border="0" cellspacing="0" cellpadding="0" align="center">
 	<tr><td height="1" colspan="5" bgcolor="#F7F7F7"></td></tr>
 	<tr bgcolor="#F0F0F0">
 		<td width="181" align="center"><font color="#666666">&nbsp <b>Welcome ! &nbsp;&nbsp ${authUser.name}.</b></font></td>
@@ -18,4 +18,4 @@
 		<!-- form1 끝 -->
 	</tr>
 	<tr><td height="1" colspan="5" bgcolor="#E5E5E5"></td></tr>
-</table>
+</table> --%>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="order">
+	<insert id="insertBuyer" parameterType="buyervo">
+	<![CDATA[
+		insert into buyer
+		values( null, #{buyer}, #{phone}, #{email}, #{location} );
+	]]>
+	<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+	</selectKey>
+	</insert>
+	
+	<insert id="insertRecipient" parameterType="buyervo">
+	<![CDATA[
+		insert into recipient
+		values( null, #{name}, #{phone}, #{email}, #{address}, #{content} );
+	]]>
+	
+	<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+	</selectKey>
+	</insert>
+	
+	<insert id="insertOrder" parameterType="ordervo">
+	<![CDATA[
+		insert into `order`
+		values( null, #{memberNo}, #{buyerNo}, #{recipientNo} );
+	]]>
+	
+	<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+	</selectKey>
+	</insert>
+	
+	
+	<select id="selectAll" resultType="orderVo" parameterType="long">
+	<![CDATA[
+		  select o.no, o.member_no as memberNo, o.buyer_no as buyerNo, o.recipient_no as recipientNo
+		      from `order` o, buyer b, recipient r, member m, paymenthistory p
+			 where o.member_no = m.`no`
+			   and o.buyer_no = b.`no`
+			   and o.recipient_no = r.`no`
+			   and p.order_no = o.`no`
+			limit 1
+	]]>
+	</select>
+	
+<!-- 	<select id="seletcList" resultType="paymenthistoryvo" >
+	<![CDATA[
+		select no, price, method, bank_sender as bankSender, approval_number as approvalNumber,
+			   date, bank_kinds as bankKinds, card_kinds as cardKinds, halbu, order_no as orderNo
+		  from paymenthistory
+	  order by date desc
+	]]>
+	</select>
+ -->
+	 <select id="getListByNo" resultType="paymenthistoryDTO" parameterType="long">
+	<![CDATA[
+	    select p.`no` as no, p.order_no as orderNo, p.date as date, pro.name as name, p.price as price, po.count as count, p.bank_sender as bankSender, p.state as state
+		  from paymenthistory p, `order` o, po, product pro, member m
+		 where p.order_no = o.`no`
+		   and o.`no` = po.order_no
+		   and po.product_no = pro.`no`
+		   and o.member_no = #{no}
+			group by o.no
+	]]>
+	</select> 
+	
+	<select id="seletcList" resultType="paymenthistoryDTO" >
+	<![CDATA[
+		select p.`no` as no, p.order_no as orderNo, p.date as date, pro.name as name, p.price as price, po.count as count, p.bank_sender as bankSender, p.state as state, p.method as method
+		  from paymenthistory p, `order` o, po, product pro, member m
+		 where p.order_no = o.`no`
+		   and o.`no` = po.order_no
+		   and po.product_no = pro.`no`
+	  group by o.`no`
+	  order by p.date desc;
+	]]>
+	</select> 
+	
+	
+	<insert id="insertPO" parameterType="povo">
+	<![CDATA[
+		insert into po
+		values( #{orderNo}, #{productNo}, #{price}, #{count} )
+	]]>
+	</insert>
+	
+	
+	<insert id="insertPaymenthistory" parameterType="paymenthistoryvo">
+	<![CDATA[
+		insert into paymenthistory
+		values( null, #{price}, #{method}, #{bankSender}, concat(now()+#{approvalNumber}), 
+				'주문확인', now(), #{bankKinds}, #{cardKinds}, #{halbu}, #{count}, #{orderNo})
+	]]>
+	
+	<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+	</selectKey> 
+	</insert>
+	
+	<delete id="delete" parameterType="long">
+	<![CDATA[
+		delete from order where #{no} = no
+	]]>
+	</delete>
+	
+	<!-- 
+
+	
+	<select id="getListByNo" resultType="cartdto" parameterType="long">
+	<![CDATA[
+		select product.no, product.name, cart.member_no, cart.product_no, sum(cart.`count`)as count,
+				 product.price, image.new_name as newName
+		  from product, cart, image
+		 where #{no} = cart.member_no
+		   and cart.product_no = product.`no`
+		   and product.`no` = image.product_no
+		 group by cart.product_no
+	]]>
+	</select>
+	
+	
+	<update id="updateByNo" parameterType="cartdto">
+		<![CDATA[
+			UPDATE cart 
+			   SET count = #{count} 
+			 WHERE product_no = #{no}
+			   AND member_no = #{memberNo}
+		]]>
+	</update>
+	
+	<delete id="deleteOne" parameterType="long">
+	<![CDATA[
+		delete from cart where #{no} = product_no
+	]]>
+	</delete> -->
+	
+</mapper>

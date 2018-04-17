@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>비트닷컴 쇼핑몰</title>
+	<title>김치톡톡 쇼핑몰</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
 </head>
@@ -47,7 +47,7 @@
 				<tr>
 					<td width="30"></td>
 					<td>
-						<font color="4B4B4B">누구나 비트닷컴 인터넷 쇼핑몰의 회원이 되실 수 있습니다. 비트닷컴 인터넷 쇼핑몰 상단에 있는 회원가입 버튼을 선택 하신 후 등록을 해주시면, 바로 회원으로 가입이 됩니다.</font>
+						<font color="4B4B4B">누구나 김치톡톡 인터넷 쇼핑몰의 회원이 되실 수 있습니다. 김치톡톡 인터넷 쇼핑몰 상단에 있는 회원가입 버튼을 선택 하신 후 등록을 해주시면, 바로 회원으로 가입이 됩니다.</font>
 					</td>
 				</tr>
 				<tr><td height="10" colspan="2"></td></tr>

@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>비트닷컴 쇼핑몰</title>
+	<title>김치톡톡 쇼핑몰</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link href="${pageContext.servletContext.contextPath }/assets/css/font.css" rel="stylesheet" type="text/css">
 </head>
@@ -44,9 +44,7 @@
 							<tr>
 								<td width="652" valign="top"  style="line-height:19px;">
 
-									&nbsp;&nbsp;비트닷컴은 아주 오래전부터 현재의 비트닷컴 까지 수년여의 오랜 전통과 역사를 가지고 소비자분들의 격려와 믿음을 바탕으로 성장해온 전문 쇼핑몰 입니다.<br><br><br>
-									...
-									<br><br><br>
+									&nbsp;&nbsp;김치톡톡은 아주 오래전부터 현재의 김치톡톡 까지 수년여의 오랜 전통과 역사를 가지고 소비자분들의 격려와 믿음을 바탕으로 성장해온 김치 전문 쇼핑몰 입니다.<br><br><br>
 									편안한 쇼핑시간이 되시기를...<br><br><br>
 									감사합니다.<br>
 

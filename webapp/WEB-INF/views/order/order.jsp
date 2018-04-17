@@ -29,8 +29,8 @@
 			<script language="javascript">
 
 			function Check_Value() {
-				if (!form2.o_name.value) {
-					alert("주문자 이름이 잘 못 되었습니다.");	form2.o_name.focus();	return;
+				if (!form2.name.value) {
+					alert("주문자 이름이 잘 못 되었습니다.");	form2.name.focus();	return;
 				}
 				if (!form2.o_tel1.value || !form2.o_tel2.value || !form2.o_tel3.value) {
 					alert("전화번호가 잘 못 되었습니다.");	form2.o_tel1.focus();	return;
@@ -48,8 +48,8 @@
 					alert("주소가 잘 못 되었습니다.");	form2.o_email.focus();	return;
 				}
 
-				if (!form2.orderMan.value) {
-					alert("받으실 분의 이름이 잘 못 되었습니다.");	form2.orderMan.focus();	return;
+				if (!form2.buyer.value) {
+					alert("받으실 분의 이름이 잘 못 되었습니다.");	form2.buyer.focus();	return;
 				}
 				if (!form2.r_tel1.value || !form2.r_tel2.value || !form2.r_tel3.value) {
 					alert("전화번호가 잘 못 되었습니다.");	form2.r_tel1.focus();	return;
@@ -77,7 +77,7 @@
 
 			function SameCopy(str) {
 				if (str == "Y") {
-					form2.orderMan.value = form2.o_name.value;
+					form2.buyer.value = form2.name.value;
 					form2.r_zip1.value = form2.o_zip1.value;
 					form2.r_zip2.value = form2.o_zip2.value;
 					form2.r_juso.value = form2.o_juso.value;
@@ -87,7 +87,7 @@
 					form2.email.value = form2.o_email.value;
 				}
 				else {
-					form2.orderMan.value = "";
+					form2.buyer.value = "";
 					form2.r_zip1.value = "";
 					form2.r_zip2.value = "";
 					form2.r_juso.value = "";
@@ -103,9 +103,9 @@
 					
 		 	    var phone = $("#r_phone1").val() + $("#r_phone2").val() + $("#r_phone3").val();
 				var location = $("#r_zip1").val() + $("#r_#zip2").val() + $("#r_juso").val();
-				
 		 	    $("#phone").val( phone );
 		 	    $("#location").val( location );
+		 	    $("#address").val( location );
 				});
 			})
 
@@ -142,7 +142,7 @@
 						<table cellpadding="0" cellspacing="0" width="100%">
 							<tr>
 								<td width="60">
-									<a href="product_detail.jsp?no=0000"><img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" width="50" height="50" border="0"></a>
+									<a href="product_detail.jsp?no=0000"><img src="${pageContext.request.contextPath}/uploads/images/${vo.newName}" width="50" height="50" border="0"></a>
 								</td>
 								<td class="cmfont">
 									<a href="product_detail.jsp?no=0000"><font color="#0066CC">${vo.name }</font></a><br>
@@ -199,6 +199,7 @@
 
 			<!-- form2 시작  -->
 			<form name="form2" method="post" action="${pageContext.servletContext.contextPath }/order">
+			<input type="hidden" name="orderNo" value="${orderNo }">
 			<table width="710" border="0" cellpadding="0" cellspacing="0" class="cmfont">
 				<tr>
 					<td align="left" valign="top" width="150" STYLE="padding-left:45;padding-top:5">
@@ -212,7 +213,7 @@
 								<td width="20"><b>:</b></td>
 								<td width="390">
 									<input type="hidden" name="o_no" value="${user.no }">
-									<input type="text"   name="o_name" size="20" maxlength="10" value="${user.name }" class="cmfont1">
+									<input type="text"   name="name" size="20" maxlength="10" value="${user.name }" class="cmfont1">
 								</td>
 							</tr>
 							<tr height="25">
@@ -239,6 +240,7 @@
 									<input type="text" name="o_zip2" size="3" maxlength="3" value="${zip2 }" class="cmfont1" readonly>
 									<a href="javascript:FindZip(1)"><img src="${pageContext.servletContext.contextPath }/assets/images/b_zip.gif" align="absmiddle" border="0"></a> <br>
 									<input type="text" name="o_juso" size="50" maxlength="200" value="${lastAddress }" class="cmfont1" readonly><br>
+									<input type="hidden" name="address" id="address" value="">
 								</td>
 							</tr>
 						</table>
@@ -273,7 +275,7 @@
 								<td width="150"><b>받으실 분 성명</b></td>
 								<td width="20"><b>:</b></td>
 								<td width="390">
-									<input type="text" name="orderMan" size="20" maxlength="10" value="" class="cmfont1">
+									<input type="text" name="buyer" size="20" maxlength="10" value="" class="cmfont1">
 								</td>
 							</tr>
 							<tr height="25">

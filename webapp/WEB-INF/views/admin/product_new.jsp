@@ -12,7 +12,7 @@
 <br>
 <jsp:include page="/WEB-INF/views/include/admin-menu.jsp"/>
 <hr width='900' size='3'>
-<form action = "${pageContext.servletContext.contextPath }/ad/productnew" accept-charset="utf-8" name = "product_new" method = "post"> 
+<form action = "${pageContext.servletContext.contextPath }/ad/productnew" accept-charset="utf-8" name = "product_new" method = "post" enctype="multipart/form-data"> 
 <table width="800" border="1" cellspacing="0" cellpadding="3" bordercolordark="white" bordercolorlight="black">
 	<tr height="23"> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품분류</td>
@@ -50,24 +50,6 @@
 			<input type="text" name="price" value="" size="12" maxlength="12"> 원
 		</td>
 	</tr>
-<!--	<tr> 
-		<td width="100" bgcolor="#CCCCCC" align="center">옵션</td>
-     <td width="700" bgcolor="#F2F2F2">
-			<select name="opt1">
-				<option value="0" selected>옵션선택</option>
-				<option value="1">사이즈</option>
-				<option value="2">색상_WB</option>
-				<option value="3">색상_WR</option>
-			</select> &nbsp; &nbsp; 
-
-			<select name="opt2">
-				<option value="0" selected>옵션선택</option>
-				<option value="1">사이즈</option>
-				<option value="2">색상_WB</option>
-				<option value="3">색상_WR</option>
-			</select> &nbsp; &nbsp; 
-		</td> 
-	</tr>-->
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">제품설명</td>
 		<td width="700" bgcolor="#F2F2F2">
@@ -94,9 +76,7 @@
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">이미지</td>
 		<td width="700" bgcolor="#F2F2F2">
-			<b>이미지1</b>: <input type="file" name="file1" size="30" value="찾아보기"><br>
-			<b>이미지2</b>: <input type="file" name="file2" size="30" value="찾아보기"><br>
-			<b>이미지3</b>: <input type="file" name="file3" size="30" value="찾아보기"><br>
+			<b>이미지1</b>: <input type="file" name="file" size="30" value="찾아보기"><br>
 		</td>
 	</tr>
 </table>

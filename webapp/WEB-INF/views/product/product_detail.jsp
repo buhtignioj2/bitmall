@@ -45,7 +45,7 @@
 						<table border="0" cellpadding="0" cellspacing="1" width="315" height="315" bgcolor="D4D0C8">
 							<tr>
 								<td bgcolor="white" align="center">
-									<img src="${pageContext.servletContext.contextPath }/assets/images/product/${vo.newName}" height="315" border="0" align="absmiddle" ONCLICK="Zoomimage('0000')" STYLE="cursor:hand">
+									<img src="${pageContext.request.contextPath}/uploads/images/${vo.newName}" height="315" border="0" align="absmiddle" ONCLICK="Zoomimage('0000')" STYLE="cursor:hand">
 								</td>
 							</tr>
 						</table>
